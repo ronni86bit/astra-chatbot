@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "astra-catalogue"
+version = "0.1.0"
+description = "Deterministic RF question catalogue engine for SystemVue RF dataset"
+requires-python = ">=3.10"
+dependencies = [
+    "openpyxl>=3.1.0",
+    "pydantic>=2.6",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+llm = ["openai>=1.40"]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+
+[project.scripts]
+rf-catalogue = "rf_catalogue.engine:main"
+
+[tool.pytest]
+testpaths = ["tests/"]

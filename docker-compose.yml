@@ -1,0 +1,44 @@
+# RF/SystemVue Question Assistant - full stack.
+#
+#   docker compose up --build
+#
+# then open http://localhost:8080
+#
+# Secrets are read from .env in the project root (git-ignored) and injected
+# into the backend container at runtime only - never baked into images.
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: deploy/backend.Dockerfile
+    environment:
+      # Provider selection + key come from .env (see .env.example):
+      LLM_PROVIDER: ${LLM_PROVIDER:-groq}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      SESSION_TTL: ${SESSION_TTL:-7200}
+      # Same-origin via the nginx proxy; CORS is only needed for dev.
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: deploy/frontend.Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

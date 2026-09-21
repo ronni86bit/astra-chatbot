@@ -1,0 +1,654 @@
+{
+  "source": "evaluation/MANUAL_TEST_PLAN.md",
+  "note": "Machine-readable conversion of the 30-case manual acceptance plan. Expected rows verified against the deterministic catalogue engine. offline_draft = QueryIntentDraft overrides injected by the OFFLINE/MOCKED runner (empty string = unknown, per the no-null schema convention). offline_llm=false means the case resolves deterministically before Stage B.",
+  "cases": [
+    {
+      "id": "M01",
+      "area": "straightforward best",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the best Mismatch Loss in the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 1
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 1,
+      "notes": "Exact catalogue answer with provenance."
+    },
+    {
+      "id": "M02",
+      "area": "straightforward worst",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the worst Cascaded Gain in the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 10
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 10
+    },
+    {
+      "id": "M03",
+      "area": "maximum",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the Maximum Mismatch Loss in the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 3
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 3
+    },
+    {
+      "id": "M04",
+      "area": "minimum (canonical word)",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the Minimum Cascaded Gain in the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 12
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 12
+    },
+    {
+      "id": "M05",
+      "area": "exact frequency",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the Cascaded Gain at 1500 MHz for the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 789,
+          "accept_alternatives": [
+            {
+              "status": "NEEDS_CLARIFICATION",
+              "candidates_contain": [
+                "Particular frequency",
+                "Individual frequency final value"
+              ],
+              "note": "Conservative clarification listing both valid requests."
+            },
+            {
+              "status": "ANSWERED",
+              "row_id": 161,
+              "resolved_request": "Particular frequency",
+              "note": "OFFICE REVIEW: bare-frequency questions match BOTH 'Particular frequency' (161) and 'Individual frequency final value' (789); either valid record is accepted until the office rules on the distinction."
+            }
+          ]
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 789,
+      "notes": "See accept_alternatives: two valid catalogue records match this phrasing (office review)."
+    },
+    {
+      "id": "M06",
+      "area": "GHz input",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the Desired Channel Power at 2.5 GHz in the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 191,
+          "accept_alternatives": [
+            {
+              "status": "NEEDS_CLARIFICATION",
+              "note": "Frequency must display as 2500 MHz (never 2.5 GHz)."
+            },
+            {
+              "status": "ANSWERED",
+              "row_id": 1815,
+              "resolved_request": "Individual frequency final value",
+              "note": "OFFICE REVIEW: same Particular-frequency vs Individual-frequency-final-value ambiguity as M05."
+            }
+          ]
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 191
+    },
+    {
+      "id": "M07",
+      "area": "part query",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Show Mismatch Loss for part ADL8124 across frequency.",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 3227
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 3227
+    },
+    {
+      "id": "M08",
+      "area": "node query",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Give me the node summary for mismatch loss at node 2.",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 3276
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 3276
+    },
+    {
+      "id": "M09",
+      "area": "threshold",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Where is Mismatch Loss above 0.5 dB in All nodes?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 2853
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 2853
+    },
+    {
+      "id": "M10",
+      "area": "threshold distinction",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Where is Mismatch Loss above 10 dB in All nodes?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 2868
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 2868,
+      "notes": "Must differ from M09's row (threshold 0.5 vs 10)."
+    },
+    {
+      "id": "M11",
+      "area": "range",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Where is Cascaded Compression between 0.1 and 0.5 dB20?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 3084
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 3084
+    },
+    {
+      "id": "M12",
+      "area": "closest value",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Where is Cascaded Compression closest to 0.1 dB20?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 3071
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 3071
+    },
+    {
+      "id": "M13",
+      "area": "TNP reference qualifier (desired)",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Show total node power above desired channel power at individual frequency 1200 MHz?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 2421
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 2421
+    },
+    {
+      "id": "M14",
+      "area": "TNP reference qualifier (plain)",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Show total node power above channel power at individual frequency 1200 MHz?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 2423
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 2423,
+      "notes": "Must differ from M13 (reference qualifier distinction)."
+    },
+    {
+      "id": "M15",
+      "area": "ambiguous metric",
+      "context_mode": "conversation",
+      "messages": [
+        {
+          "text": "What is the gain at 2500 MHz?",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "expected_candidates_contain": [
+            "GAIN",
+            "CGAIN"
+          ],
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "",
+            "scope": "",
+            "frequency_selection": "2500 MHz",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        },
+        {
+          "text": "CGAIN",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "expected_resolved_dims": {
+            "metric": "CGAIN"
+          },
+          "offline_llm": false,
+          "accept_alternatives": [
+            {
+              "status": "ANSWERED",
+              "resolved_dims": {
+                "metric": "CGAIN"
+              },
+              "note": "OFFICE REVIEW: after metric clarification the assistant resolved the Particular-frequency record (161); see M05. Any valid catalogue record for the clarified query is accepted (office review item 10)."
+            }
+          ]
+        }
+      ],
+      "expected_status": "NEEDS_CLARIFICATION",
+      "notes": "Bare 'gain' must clarify between GAIN and CGAIN; the reply resumes the pending clarification with metric=CGAIN."
+    },
+    {
+      "id": "M16",
+      "area": "ambiguous request variant",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Give me the lowest cascade gain at the final node.",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "expected_missing_contains": [
+            "request"
+          ],
+          "expected_hints_contain": [
+            "Minimum",
+            "Worst"
+          ],
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "",
+            "scope": "Final node",
+            "frequency_selection": "",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        }
+      ],
+      "expected_status": "NEEDS_CLARIFICATION",
+      "notes": "'lowest' must never silently map to Minimum or Worst."
+    },
+    {
+      "id": "M17",
+      "area": "ambiguous scope",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the best mismatch loss in the ADL8124 family?",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "expected_missing_contains": [
+            "scope"
+          ],
+          "expected_hints_contain": [
+            "ADL8124",
+            "ADL8124_1"
+          ],
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "Best",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        }
+      ],
+      "expected_status": "NEEDS_CLARIFICATION",
+      "notes": "'ADL8124 family' is ambiguous vs ADL8124_1."
+    },
+    {
+      "id": "M18",
+      "area": "missing threshold",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Where is Mismatch Loss above the limit?",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "expected_missing_contains": [
+            "threshold"
+          ],
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "Threshold Above",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": null
+          }
+        }
+      ],
+      "expected_status": "NEEDS_CLARIFICATION"
+    },
+    {
+      "id": "M19",
+      "area": "unknown part",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the best mismatch loss for part FOO123?",
+          "expected_status": "NOT_FOUND",
+          "expected_message_contains": [
+            "FOO123"
+          ],
+          "offline_llm": false
+        }
+      ],
+      "expected_status": "NOT_FOUND"
+    },
+    {
+      "id": "M20",
+      "area": "unknown node",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the best CGAIN in node 99?",
+          "expected_status": "NOT_FOUND",
+          "expected_message_contains": [
+            "99"
+          ],
+          "offline_llm": false
+        }
+      ],
+      "expected_status": "NOT_FOUND"
+    },
+    {
+      "id": "M21",
+      "area": "unknown frequency",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the best CGAIN at 3400 MHz?",
+          "expected_status": "NOT_FOUND",
+          "expected_message_contains": [
+            "3400 MHz"
+          ],
+          "offline_llm": false
+        }
+      ],
+      "expected_status": "NOT_FOUND"
+    },
+    {
+      "id": "M22",
+      "area": "unsupported request",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Plot the Cascaded Gain over time for the final node.",
+          "expected_status": "UNSUPPORTED",
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": null,
+            "unresolvable_reason": "Plotting graphs is outside the catalogue's query capabilities"
+          }
+        }
+      ],
+      "expected_status": "UNSUPPORTED"
+    },
+    {
+      "id": "M23",
+      "area": "follow-up inheritance",
+      "context_mode": "conversation",
+      "messages": [
+        {
+          "text": "What is the worst CGAIN in the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 10,
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "Worst",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        },
+        {
+          "text": "What about the best?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 9,
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "Best",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        }
+      ],
+      "expected_status": "ANSWERED",
+      "expected_row_id": 9,
+      "notes": "Elliptical follow-up inherits metric/scope/frequency/unit; row must differ from message 1."
+    },
+    {
+      "id": "M24",
+      "area": "clarification follow-up",
+      "context_mode": "conversation",
+      "messages": [
+        {
+          "text": "What is the gain at 2500 MHz?",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "expected_candidates_contain": [
+            "GAIN",
+            "CGAIN"
+          ],
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "",
+            "scope": "",
+            "frequency_selection": "2500 MHz",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        },
+        {
+          "text": "CGAIN",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "expected_resolved_dims": {
+            "metric": "CGAIN"
+          },
+          "offline_llm": false,
+          "accept_alternatives": [
+            {
+              "status": "ANSWERED",
+              "resolved_dims": {
+                "metric": "CGAIN"
+              },
+              "note": "OFFICE REVIEW: after metric clarification the assistant resolved the Particular-frequency record (161); see M05. Any valid catalogue record for the clarified query is accepted (office review item 10)."
+            }
+          ]
+        }
+      ],
+      "expected_status": "NEEDS_CLARIFICATION",
+      "notes": "Duplicate of case 15 flow per the manual plan."
+    },
+    {
+      "id": "M25",
+      "area": "reset/context behavior",
+      "context_mode": "conversation",
+      "messages": [
+        {
+          "text": "What is the best Mismatch Loss in the final node?",
+          "expected_status": "ANSWERED",
+          "expected_row_id": 1,
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "Best",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        },
+        {
+          "action": "reset_context"
+        },
+        {
+          "text": "What about the best?",
+          "expected_status": "NEEDS_CLARIFICATION",
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": {
+              "kind": "none"
+            }
+          }
+        }
+      ],
+      "expected_status": "NEEDS_CLARIFICATION",
+      "notes": "After /reset the elliptical follow-up must NOT resolve from stale context."
+    },
+    {
+      "id": "M26",
+      "area": "invalid command",
+      "context_mode": "ui",
+      "messages": [
+        {
+          "text": "/frobnicate",
+          "expected_status": "UI_HANDLED"
+        }
+      ],
+      "expected_status": "UI_HANDLED",
+      "notes": "handle_command returns an 'Unknown command' message; no crash."
+    },
+    {
+      "id": "M27",
+      "area": "empty input",
+      "context_mode": "ui",
+      "messages": [
+        {
+          "text": "   ",
+          "expected_status": "UI_HANDLED"
+        }
+      ],
+      "expected_status": "UI_HANDLED",
+      "notes": "Whitespace-only input is ignored (re-prompt); no crash."
+    },
+    {
+      "id": "M28",
+      "area": "unknown metric",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "What is the return loss in the final node?",
+          "expected_status": "NOT_FOUND",
+          "expected_message_contains": [
+            "return loss"
+          ],
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "",
+            "scope": "",
+            "frequency_selection": "",
+            "unit": "",
+            "params": null,
+            "unsupported_dimension": "metric",
+            "unsupported_value": "return loss"
+          }
+        }
+      ],
+      "expected_status": "NOT_FOUND"
+    },
+    {
+      "id": "M29",
+      "area": "wrong-unit combination",
+      "context_mode": "standalone",
+      "messages": [
+        {
+          "text": "Show the total node power above channel power difference in dB.",
+          "expected_status": "NOT_FOUND",
+          "offline_llm": true,
+          "offline_draft": {
+            "metric": "",
+            "request": "Power difference",
+            "scope": "",
+            "frequency_selection": "All Frequencies",
+            "unit": "dB",
+            "params": {
+              "reference_qualifier": "channel power"
+            }
+          }
+        }
+      ],
+      "expected_status": "NOT_FOUND",
+      "notes": "TNP exists only in dBm; the explicit user unit is respected and reported as NOT_FOUND."
+    },
+    {
+      "id": "M30",
+      "area": "missing key behaviour",
+      "context_mode": "env",
+      "messages": [
+        {
+          "text": "(clear provider keys; restart chatbot; ask a question)",
+          "expected_status": "GRACEFUL"
+        }
+      ],
+      "expected_status": "GRACEFUL",
+      "notes": "build_service raises a clear RuntimeError; degraded mode explains configuration; commands still work. Executed last with provider keys temporarily cleared."
+    }
+  ]
+}

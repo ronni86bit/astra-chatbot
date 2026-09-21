@@ -1,0 +1,51 @@
+{
+  "subset": "smoke",
+  "total_items": 23,
+  "queryintent_exact_match_accuracy": 1.0,
+  "exact_row_resolution_accuracy": 1.0,
+  "metric_accuracy": 1.0,
+  "request_accuracy": 1.0,
+  "scope_accuracy": 1.0,
+  "unit_accuracy": 1.0,
+  "frequency_selection_accuracy": 1.0,
+  "parameter_extraction_accuracy": 1.0,
+  "clarification_accuracy": 1.0,
+  "clarification_precision": 1.0,
+  "not_found_accuracy": 1.0,
+  "unsupported_query_accuracy": 1.0,
+  "provider_error_items_excluded": 2,
+  "counts": {
+    "row_items": 13,
+    "intent_parse_correct": 13,
+    "row_resolution_correct": 13,
+    "param_items": 13,
+    "params_correct": 13,
+    "clarification_items": 4,
+    "clarification_correct": 4,
+    "false_clarifications": 0,
+    "not_found_items": 3,
+    "not_found_correct": 3,
+    "unsupported_items": 1,
+    "unsupported_correct": 1
+  },
+  "failures": [
+    {
+      "id": "dup-2421",
+      "kind": "row",
+      "text": "Show total node power above desired channel power at individual frequency 1200 MHz?",
+      "expected": "answered/classified",
+      "actual": "ERROR",
+      "passed": false,
+      "detail": "Sorry - the request could not be completed (BadRequestError). Please try again."
+    },
+    {
+      "id": "dup-4772",
+      "kind": "row",
+      "text": "Show total node power above desired channel power across frequency?",
+      "expected": "answered/classified",
+      "actual": "ERROR",
+      "passed": false,
+      "detail": "Sorry - the request could not be completed (BadRequestError). Please try again."
+    }
+  ]
+}

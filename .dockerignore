@@ -1,0 +1,24 @@
+# Keep images small and secrets out.
+frontend/node_modules
+frontend/dist
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.venv
+venv
+.env
+*.egg-info
+audit
+evaluation
+.zcodeignore
+.pytest_cache
+results*.txt
+ambiguities*.txt
+session-*.md
+fix_test.py
+run_pytest.py
+run_tests.py
+verify_lookups.py
+audit_keys.py
+audit_summary.py
+report.py

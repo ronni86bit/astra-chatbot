@@ -1,0 +1,502 @@
+{
+  "suite": "manual-acceptance",
+  "mode": "OFFLINE/MOCKED",
+  "timestamp": "2026-09-20T19:14:05.709605+00:00",
+  "duration_s": 27.5,
+  "total_cases": 30,
+  "counts": {
+    "passed": 30,
+    "failed": 0,
+    "provider_error": 0,
+    "skipped": 0,
+    "test_plan_review": 0
+  },
+  "row_resolution": {
+    "correct": 15,
+    "total": 15
+  },
+  "review_items": [],
+  "cases": [
+    {
+      "id": "M01",
+      "area": "straightforward best",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the best Mismatch Loss in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=1, actual_row_id=1, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 1,
+      "actual_row_id": 1,
+      "resolved_intent": [
+        "MismatchLoss",
+        "Best",
+        "Final node",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M02",
+      "area": "straightforward worst",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the worst Cascaded Gain in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=10, actual_row_id=10, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": 10,
+      "actual_row_id": 10,
+      "resolved_intent": [
+        "CGAIN",
+        "Worst",
+        "Final node",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M03",
+      "area": "maximum",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the Maximum Mismatch Loss in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3, actual_row_id=3, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 3,
+      "actual_row_id": 3,
+      "resolved_intent": [
+        "MismatchLoss",
+        "Maximum",
+        "Final node",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M04",
+      "area": "minimum (canonical word)",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the Minimum Cascaded Gain in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=12, actual_row_id=12, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 12,
+      "actual_row_id": 12,
+      "resolved_intent": [
+        "CGAIN",
+        "Minimum",
+        "Final node",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M05",
+      "area": "exact frequency",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the Cascaded Gain at 1500 MHz for the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=789, actual_row_id=789, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": 789,
+      "actual_row_id": 789,
+      "resolved_intent": [
+        "CGAIN",
+        "Individual frequency final value",
+        "Final node",
+        "1500 MHz",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M06",
+      "area": "GHz input",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the Desired Channel Power at 2.5 GHz in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=191, actual_row_id=191, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": 191,
+      "actual_row_id": 191,
+      "resolved_intent": [
+        "DCP",
+        "Particular frequency",
+        "Final node",
+        "2500 MHz",
+        "dBm",
+        "none"
+      ]
+    },
+    {
+      "id": "M07",
+      "area": "part query",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Show Mismatch Loss for part ADL8124 across frequency.', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3227, actual_row_id=3227, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": 3227,
+      "actual_row_id": 3227,
+      "resolved_intent": [
+        "MismatchLoss",
+        "Part summary",
+        "ADL8124",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M08",
+      "area": "node query",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Give me the node summary for mismatch loss at node 2.', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3276, actual_row_id=3276, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 3276,
+      "actual_row_id": 3276,
+      "resolved_intent": [
+        "MismatchLoss",
+        "Node summary",
+        "2",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M09",
+      "area": "threshold",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Where is Mismatch Loss above 0.5 dB in All nodes?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2853, actual_row_id=2853, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 2853,
+      "actual_row_id": 2853,
+      "resolved_intent": [
+        "MismatchLoss",
+        "Threshold Above",
+        "All nodes",
+        "All Frequencies",
+        "dB",
+        "threshold",
+        0.5
+      ]
+    },
+    {
+      "id": "M10",
+      "area": "threshold distinction",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Where is Mismatch Loss above 10 dB in All nodes?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2868, actual_row_id=2868, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 2868,
+      "actual_row_id": 2868,
+      "resolved_intent": [
+        "MismatchLoss",
+        "Threshold Above",
+        "All nodes",
+        "All Frequencies",
+        "dB",
+        "threshold",
+        10.0
+      ]
+    },
+    {
+      "id": "M11",
+      "area": "range",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Where is Cascaded Compression between 0.1 and 0.5 dB20?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3084, actual_row_id=3084, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 3084,
+      "actual_row_id": 3084,
+      "resolved_intent": [
+        "CCOMP",
+        "Range",
+        "All nodes",
+        "All Frequencies",
+        "dB20",
+        "range",
+        0.1,
+        0.5
+      ]
+    },
+    {
+      "id": "M12",
+      "area": "closest value",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Where is Cascaded Compression closest to 0.1 dB20?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3071, actual_row_id=3071, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 3071,
+      "actual_row_id": 3071,
+      "resolved_intent": [
+        "CCOMP",
+        "Closest value",
+        "All nodes",
+        "All Frequencies",
+        "dB20",
+        "closest",
+        0.1
+      ]
+    },
+    {
+      "id": "M13",
+      "area": "TNP reference qualifier (desired)",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Show total node power above desired channel power at individual frequency 1200 MHz?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2421, actual_row_id=2421, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 2421,
+      "actual_row_id": 2421,
+      "resolved_intent": [
+        "TNP",
+        "Individual frequency power difference",
+        "Final node",
+        "1200 MHz",
+        "dBm",
+        "refqual",
+        "desired channel power"
+      ]
+    },
+    {
+      "id": "M14",
+      "area": "TNP reference qualifier (plain)",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Show total node power above channel power at individual frequency 1200 MHz?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2423, actual_row_id=2423, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": 2423,
+      "actual_row_id": 2423,
+      "resolved_intent": [
+        "TNP",
+        "Individual frequency power difference",
+        "Final node",
+        "1200 MHz",
+        "dBm",
+        "refqual",
+        "channel power"
+      ]
+    },
+    {
+      "id": "M15",
+      "area": "ambiguous metric",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the gain at 2500 MHz?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)",
+        "MessageResult(text='CGAIN', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.02)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M16",
+      "area": "ambiguous request variant",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Give me the lowest cascade gain at the final node.', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.02)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M17",
+      "area": "ambiguous scope",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the best mismatch loss in the ADL8124 family?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.02)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M18",
+      "area": "missing threshold",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Where is Mismatch Loss above the limit?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.01)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M19",
+      "area": "unknown part",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the best mismatch loss for part FOO123?', expected_status='NOT_FOUND', actual_status='NOT_FOUND', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M20",
+      "area": "unknown node",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the best CGAIN in node 99?', expected_status='NOT_FOUND', actual_status='NOT_FOUND', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M21",
+      "area": "unknown frequency",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the best CGAIN at 3400 MHz?', expected_status='NOT_FOUND', actual_status='NOT_FOUND', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M22",
+      "area": "unsupported request",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Plot the Cascaded Gain over time for the final node.', expected_status='UNSUPPORTED', actual_status='UNSUPPORTED', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M23",
+      "area": "follow-up inheritance",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the worst CGAIN in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=10, actual_row_id=10, checks=[], failures=[], note='', latency_s=0.01)",
+        "MessageResult(text='What about the best?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=9, actual_row_id=9, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": 9,
+      "actual_row_id": 9,
+      "resolved_intent": [
+        "CGAIN",
+        "Best",
+        "Final node",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M24",
+      "area": "clarification follow-up",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the gain at 2500 MHz?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)",
+        "MessageResult(text='CGAIN', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.03)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M25",
+      "area": "reset/context behavior",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the best Mismatch Loss in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=1, actual_row_id=1, checks=[], failures=[], note='', latency_s=0.01)",
+        "MessageResult(text='What about the best?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": 1,
+      "resolved_intent": [
+        "MismatchLoss",
+        "Best",
+        "Final node",
+        "All Frequencies",
+        "dB",
+        "none"
+      ]
+    },
+    {
+      "id": "M26",
+      "area": "invalid command",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='/frobnicate', expected_status='UI_HANDLED', actual_status='UI_HANDLED', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M27",
+      "area": "empty input",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='   ', expected_status='UI_HANDLED', actual_status='UI_HANDLED', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M28",
+      "area": "unknown metric",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='What is the return loss in the final node?', expected_status='NOT_FOUND', actual_status='NOT_FOUND', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M29",
+      "area": "wrong-unit combination",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [
+        "MessageResult(text='Show the total node power above channel power difference in dB.', expected_status='NOT_FOUND', actual_status='NOT_FOUND', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.02)"
+      ],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    },
+    {
+      "id": "M30",
+      "area": "missing key behaviour",
+      "outcome": "PASSED",
+      "reason": "",
+      "messages": [],
+      "expected_row_id": null,
+      "actual_row_id": null,
+      "resolved_intent": null
+    }
+  ]
+}

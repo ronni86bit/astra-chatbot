@@ -1,0 +1,25 @@
+# Secrets — never commit
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.coverage
+
+# Virtual environments
+.venv/
+venv/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Local evaluation output (may contain prompt/response logs)
+evaluation/last_live_report.json
+
+# runtime scratch from acceptance env case
+src/rf_catalogue/_empty_env.cfg

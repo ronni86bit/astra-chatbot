@@ -1,0 +1,18 @@
+{"id": "clar-01", "kind": "clarification", "subset": "smoke", "text": "What is the gain at 2500 MHz?", "expect_status": "NEEDS_CLARIFICATION", "expect_missing": ["metric"]}
+{"id": "clar-02", "kind": "clarification", "subset": "smoke", "text": "Where is Mismatch Loss above the limit?", "expect_status": "NEEDS_CLARIFICATION", "expect_missing_contains": ["threshold"]}
+{"id": "clar-07", "kind": "clarification", "subset": "smoke", "text": "Give me the lowest cascade gain at the final node.", "expect_status": "NEEDS_CLARIFICATION", "expect_missing_contains": ["request"], "expect_hints_contain": ["Minimum", "Worst"], "note": "'lowest' is deliberately NOT mapped to a canonical REQUEST; with frequency undetermined the candidates are presented as hints rather than full intents"}
+{"id": "clar-08", "kind": "clarification", "subset": "smoke", "text": "What is the best mismatch loss in the ADL8124 family?", "expect_status": "NEEDS_CLARIFICATION", "expect_missing_contains": ["scope"], "note": "ADL8124 matches both ADL8124 and ADL8124_1 scopes"}
+{"id": "clar-03", "kind": "clarification", "subset": "core", "text": "What is the best mismatch loss?", "expect_status": "NEEDS_CLARIFICATION", "expect_missing": ["scope"]}
+{"id": "clar-04", "kind": "clarification", "subset": "core", "text": "Show the total node power difference at 1200 MHz.", "expect_status": "NEEDS_CLARIFICATION", "expect_missing_contains": ["reference qualifier"]}
+{"id": "clar-05", "kind": "clarification", "subset": "core", "text": "Where does the mismatch loss fall in the range?", "expect_status": "NEEDS_CLARIFICATION", "expect_missing_contains": ["range"]}
+{"id": "clar-06", "kind": "clarification", "subset": "core", "text": "What was it then?", "expect_status": "NEEDS_CLARIFICATION"}
+{"id": "nf-01", "kind": "not_found", "subset": "smoke", "text": "What is the best CGAIN at 3400 MHz?", "expect_status": "NOT_FOUND", "expect_message_contains": ["3400 MHz"]}
+{"id": "nf-06", "kind": "not_found", "subset": "smoke", "text": "What is the best mismatch loss for part FOO123?", "expect_status": "NOT_FOUND", "expect_message_contains": ["FOO123"]}
+{"id": "nf-07", "kind": "not_found", "subset": "smoke", "text": "What is the best CGAIN in node 99?", "expect_status": "NOT_FOUND", "expect_message_contains": ["99"]}
+{"id": "nf-08", "kind": "not_found", "subset": "core", "text": "What is the return loss in the final node?", "expect_status": "NOT_FOUND", "note": "unknown metric; the LLM must report it via unsupported_dimension, NOT via clarification"}
+{"id": "nf-02", "kind": "not_found", "subset": "core", "text": "What is the mismatch loss at 3500 MHz in the final node?", "expect_status": "NOT_FOUND", "expect_message_contains": ["3500 MHz"]}
+{"id": "nf-03", "kind": "not_found", "subset": "core", "text": "Where is Mismatch Loss above 0.2 dB in All nodes?", "expect_status": "NOT_FOUND"}
+{"id": "nf-05", "kind": "not_found", "subset": "core", "text": "Where is Cascaded Gain between 7 and 9 dB?", "expect_status": "NOT_FOUND"}
+{"id": "uns-01", "kind": "unsupported", "subset": "smoke", "text": "Plot the cascaded gain over time for the final node.", "expect_status": "UNSUPPORTED", "note": "request type (plotting) is outside catalogue capabilities"}
+{"id": "uns-02", "kind": "unsupported", "subset": "core", "text": "Export the mismatch loss catalogue to CSV for me.", "expect_status": "UNSUPPORTED"}
+{"id": "uns-03", "kind": "unsupported", "subset": "core", "text": "Predict what the gain will be next week.", "expect_status": "UNSUPPORTED"}

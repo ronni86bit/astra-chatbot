@@ -1,0 +1,220 @@
+{
+  "A": {
+    "label": "A",
+    "user_text": "What is the worst Cascaded Gain in the final node?",
+    "stage_a_normalized": "What is the worst Cascaded Gain in the Final node?",
+    "stage_a_unsupported": false,
+    "llm_mode": "json_schema",
+    "provider_error": null,
+    "raw_output": {
+      "metric": "CGAIN",
+      "request": "Worst",
+      "scope": "Final node",
+      "frequency_selection": "All Frequencies",
+      "unit": "dB",
+      "params": {
+        "kind": "none"
+      },
+      "unsupported_dimension": "none",
+      "unsupported_value": null,
+      "unresolvable_reason": null
+    },
+    "draft_ok": true,
+    "status": "ANSWERED",
+    "row_id": 10,
+    "intent_key": [
+      "CGAIN",
+      "Worst",
+      "Final node",
+      "All Frequencies",
+      "dB",
+      "none"
+    ],
+    "missing_fields": [],
+    "message": "Exact catalogue match (row ID 10).",
+    "correct_vs_gold": null,
+    "first_stage_of_loss": "ANSWERED (correctness judged vs gold)"
+  },
+  "B": {
+    "label": "B",
+    "user_text": "What is the best Cascaded Gain in the final node?",
+    "stage_a_normalized": "What is the best Cascaded Gain in the Final node?",
+    "stage_a_unsupported": false,
+    "llm_mode": "json_schema",
+    "provider_error": null,
+    "raw_output": {
+      "metric": "CGAIN",
+      "request": "Best",
+      "scope": "Final node",
+      "frequency_selection": "All Frequencies",
+      "unit": "dB",
+      "params": {
+        "kind": "none"
+      },
+      "unsupported_dimension": "none",
+      "unsupported_value": null,
+      "unresolvable_reason": null
+    },
+    "draft_ok": true,
+    "status": "ANSWERED",
+    "row_id": 9,
+    "intent_key": [
+      "CGAIN",
+      "Best",
+      "Final node",
+      "All Frequencies",
+      "dB",
+      "none"
+    ],
+    "missing_fields": [],
+    "message": "Exact catalogue match (row ID 9).",
+    "correct_vs_gold": null,
+    "first_stage_of_loss": "ANSWERED (correctness judged vs gold)"
+  },
+  "C": {
+    "label": "C",
+    "user_text": "What is the Cascaded Gain at 2500 MHz for the final node?",
+    "stage_a_normalized": "What is the Cascaded Gain at 2500 MHz for the Final node?",
+    "stage_a_unsupported": false,
+    "llm_mode": "json_schema",
+    "provider_error": null,
+    "raw_output": {
+      "metric": "CGAIN",
+      "request": "All frequencies",
+      "scope": "Final node",
+      "frequency_selection": "2500 MHz",
+      "unit": "dB",
+      "params": {
+        "kind": "none"
+      },
+      "unsupported_dimension": "none",
+      "unsupported_value": null,
+      "unresolvable_reason": null
+    },
+    "draft_ok": true,
+    "status": "NOT_FOUND",
+    "row_id": null,
+    "intent_key": [
+      "CGAIN",
+      "All frequencies",
+      "Final node",
+      "2500 MHz",
+      "dB",
+      "none"
+    ],
+    "missing_fields": [],
+    "message": "No catalogue row matches this query.",
+    "correct_vs_gold": null,
+    "first_stage_of_loss": "Lookup (no matching row)"
+  },
+  "D": {
+    "label": "D",
+    "user_text": "Where is Mismatch Loss above 0.1 dB?",
+    "stage_a_normalized": "Where is Mismatch Loss above 0.1 dB?",
+    "stage_a_unsupported": false,
+    "llm_mode": "json_schema",
+    "provider_error": null,
+    "raw_output": {
+      "metric": "MismatchLoss",
+      "request": "Threshold Above",
+      "scope": "All nodes",
+      "frequency_selection": "All Frequencies",
+      "unit": "dB",
+      "params": {
+        "threshold": 0.1
+      },
+      "unsupported_dimension": "none",
+      "unsupported_value": null,
+      "unresolvable_reason": null
+    },
+    "draft_ok": true,
+    "status": "ANSWERED",
+    "row_id": 2850,
+    "intent_key": [
+      "MismatchLoss",
+      "Threshold Above",
+      "All nodes",
+      "All Frequencies",
+      "dB",
+      "threshold",
+      0.1
+    ],
+    "missing_fields": [],
+    "message": "Exact catalogue match (row ID 2850).",
+    "correct_vs_gold": null,
+    "first_stage_of_loss": "ANSWERED (correctness judged vs gold)"
+  },
+  "E": {
+    "label": "E",
+    "user_text": "Show Mismatch Loss for part ADL8124 across frequency.",
+    "stage_a_normalized": "Show Mismatch Loss for part ADL8124 across frequency.",
+    "stage_a_unsupported": false,
+    "llm_mode": "json_schema",
+    "provider_error": null,
+    "raw_output": {
+      "metric": "MismatchLoss",
+      "request": "All frequencies",
+      "scope": "ADL8124",
+      "frequency_selection": "All Frequencies",
+      "unit": "dB",
+      "params": {
+        "kind": "none"
+      },
+      "unsupported_dimension": "none",
+      "unsupported_value": null,
+      "unresolvable_reason": null
+    },
+    "draft_ok": true,
+    "status": "NOT_FOUND",
+    "row_id": null,
+    "intent_key": [
+      "MismatchLoss",
+      "All frequencies",
+      "ADL8124",
+      "All Frequencies",
+      "dB",
+      "none"
+    ],
+    "missing_fields": [],
+    "message": "No catalogue row matches this query.",
+    "correct_vs_gold": null,
+    "first_stage_of_loss": "Lookup (no matching row)"
+  },
+  "F": {
+    "label": "F",
+    "user_text": "What is the TNP power difference above desired channel power?",
+    "stage_a_normalized": "What is the TNP power difference above desired channel power?",
+    "stage_a_unsupported": false,
+    "llm_mode": "json_schema",
+    "provider_error": null,
+    "raw_output": {
+      "metric": "TNP",
+      "request": "Power difference",
+      "scope": "All nodes",
+      "frequency_selection": "All Frequencies",
+      "unit": "dB",
+      "params": {
+        "reference_qualifier": "desired channel power"
+      },
+      "unsupported_dimension": "none",
+      "unsupported_value": null,
+      "unresolvable_reason": null
+    },
+    "draft_ok": true,
+    "status": "NOT_FOUND",
+    "row_id": null,
+    "intent_key": [
+      "TNP",
+      "Power difference",
+      "All nodes",
+      "All Frequencies",
+      "dB",
+      "refqual",
+      "desired channel power"
+    ],
+    "missing_fields": [],
+    "message": "No catalogue row matches this query.",
+    "correct_vs_gold": null,
+    "first_stage_of_loss": "Lookup (no matching row)"
+  }
+}
