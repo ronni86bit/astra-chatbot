@@ -778,6 +778,111 @@ class TestContextInheritancePolicy:
             assert not parser.is_elliptical_followup(text), text
 
 
+class TestEllipticalFollowUpScenarios:
+    """Final-acceptance follow-up matrix (task scenarios A-H).
+
+    A/D/E/F/H are covered above (TestContextInheritancePolicy,
+    TestPendingClarification, guess-veto tests); these cover the
+    frequency-only elliptical follow-ups that must inherit the previous
+    REQUEST, and the honest NOT_FOUND when the inherited context has no
+    catalogue row.
+    """
+
+    def test_frequency_only_followup_inherits_request(self, engine):
+        """'What is the CGAIN at 2500 MHz?' then 'And at 2600?' must
+        inherit metric/request/scope/unit and change only frequency.
+        The bare '2600' (no MHz suffix) must count as a literal
+        frequency, not be vetoed and replaced by stale context."""
+        service = RfCatalogueService(engine=engine, llm_client=FakeLLMClient(
+            responses=[
+                draft(metric="CGAIN", request="Particular frequency",
+                      scope=None, freq="2500 MHz", unit="dB"),
+                draft(metric=None, request=None, scope=None,
+                      freq="2600 MHz", unit=None),
+            ]))
+        ctx = ConversationContext()
+        r1 = service.answer_question("What is the CGAIN at 2500 MHz?", ctx)
+        assert r1.status is AnswerStatus.ANSWERED
+        assert r1.row_id == 171
+
+        r2 = service.answer_question("And at 2600?", ctx)
+        assert r2.status is AnswerStatus.ANSWERED, r2.message
+        assert r2.intent.metric == "CGAIN"
+        assert r2.intent.request == "Particular frequency"
+        assert r2.intent.scope == "Final node"
+        assert r2.intent.frequency_selection == "2600 MHz"
+        assert r2.row_id != r1.row_id
+        assert r2.row_id is not None
+
+    def test_part_context_frequency_followup_uses_part(self, engine):
+        """'Show Mismatch Loss for part ADL8124 across frequency.' then
+        'What about at 1700 MHz?' must use the part context. The catalogue
+        has NO ADL8124 rows at 1700 MHz, so the honest outcome is
+        NOT_FOUND with the part scope resolved — never a clarification
+        that lost the context, and never a fabricated row."""
+        service = RfCatalogueService(engine=engine, llm_client=FakeLLMClient(
+            responses=[
+                draft(metric="MismatchLoss", request="Part summary",
+                      scope="ADL8124", freq="All Frequencies", unit="dB"),
+                draft(metric=None, request=None, scope=None,
+                      freq="1700 MHz", unit=None),
+            ]))
+        ctx = ConversationContext()
+        service.answer_question(
+            "Show Mismatch Loss for part ADL8124 across frequency.", ctx)
+        r2 = service.answer_question("What about at 1700 MHz?", ctx)
+        assert r2.status is AnswerStatus.NOT_FOUND, r2.message
+        assert r2.intent.scope == "ADL8124"
+        assert r2.intent.request == "Part summary"
+        assert r2.intent.frequency_selection == "1700 MHz"
+
+    def test_elliptical_inherited_request_with_required_params_asks(self, engine):
+        """Inheriting a parameterised request never invents the parameter:
+        the parser asks for the threshold value."""
+        service = RfCatalogueService(engine=engine, llm_client=FakeLLMClient(
+            responses=[
+                draft(metric="MismatchLoss", request="Threshold Above",
+                      scope="All nodes", freq="All Frequencies", unit="dB",
+                      params={"threshold": 0.1}),
+                draft(metric=None, request=None, scope=None,
+                      freq="1700 MHz", unit=None),
+            ]))
+        ctx = ConversationContext()
+        r1 = service.answer_question(
+            "Where is Mismatch Loss above 0.1 dB?", ctx)
+        assert r1.status is AnswerStatus.ANSWERED
+
+        r2 = service.answer_question("And at 1700 MHz?", ctx)
+        assert r2.status is AnswerStatus.NEEDS_CLARIFICATION
+        assert any("threshold" in m.lower() for m in r2.missing_fields)
+
+    def test_pending_clarification_completes_fully(self, engine):
+        """Bare 'gain' at 2500 MHz -> clarify -> 'CGAIN' completes the
+        pending intent in one step: the catalogue uniquely determines
+        scope (Final node) and unit (dB) for CGAIN / Particular frequency
+        / 2500 MHz, so no further round-trip is needed."""
+        service = RfCatalogueService(engine=engine, llm_client=FakeLLMClient(
+            responses=[
+                draft(metric=None, request="Particular frequency",
+                      scope=None, freq="2500 MHz", unit=None),
+            ]))
+        ctx = ConversationContext()
+        r1 = service.answer_question("What is the gain at 2500 MHz?", ctx)
+        assert r1.status is AnswerStatus.NEEDS_CLARIFICATION
+
+        # 'CGAIN' completes the metric without a new LLM call
+        # (responses=[] would fail the FakeLLMClient on any LLM usage).
+        from rf_catalogue.nlp.schemas import ParseStatus
+
+        resumer = QueryParser(engine, FakeLLMClient(responses=[]))
+        r2 = resumer.parse("CGAIN", ctx)
+        assert r2.status is ParseStatus.RESOLVED
+        assert r2.intent.metric == "CGAIN"
+        assert r2.intent.scope == "Final node"
+        assert r2.intent.unit == "dB"
+        assert r2.intent.frequency_selection == "2500 MHz"
+
+
 # ---------------------------------------------------------------------------
 # Automated end-to-end terminal flow: question -> intent -> render (no API)
 # ---------------------------------------------------------------------------

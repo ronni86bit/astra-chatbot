@@ -1,8 +1,8 @@
 {
   "suite": "manual-acceptance",
   "mode": "OFFLINE/MOCKED",
-  "timestamp": "2026-09-20T19:14:05.709605+00:00",
-  "duration_s": 27.5,
+  "timestamp": "2026-09-21T02:39:06.411201+00:00",
+  "duration_s": 16.0,
   "total_cases": 30,
   "counts": {
     "passed": 30,
@@ -23,7 +23,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='What is the best Mismatch Loss in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=1, actual_row_id=1, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='What is the best Mismatch Loss in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=1, actual_row_id=1, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 1,
       "actual_row_id": 1,
@@ -61,7 +61,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='What is the Maximum Mismatch Loss in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3, actual_row_id=3, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='What is the Maximum Mismatch Loss in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3, actual_row_id=3, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 3,
       "actual_row_id": 3,
@@ -80,7 +80,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='What is the Minimum Cascaded Gain in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=12, actual_row_id=12, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='What is the Minimum Cascaded Gain in the final node?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=12, actual_row_id=12, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 12,
       "actual_row_id": 12,
@@ -156,7 +156,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='Give me the node summary for mismatch loss at node 2.', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3276, actual_row_id=3276, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='Give me the node summary for mismatch loss at node 2.', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=3276, actual_row_id=3276, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 3276,
       "actual_row_id": 3276,
@@ -175,7 +175,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='Where is Mismatch Loss above 0.5 dB in All nodes?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2853, actual_row_id=2853, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='Where is Mismatch Loss above 0.5 dB in All nodes?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2853, actual_row_id=2853, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 2853,
       "actual_row_id": 2853,
@@ -195,7 +195,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='Where is Mismatch Loss above 10 dB in All nodes?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2868, actual_row_id=2868, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='Where is Mismatch Loss above 10 dB in All nodes?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2868, actual_row_id=2868, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 2868,
       "actual_row_id": 2868,
@@ -256,7 +256,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='Show total node power above desired channel power at individual frequency 1200 MHz?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2421, actual_row_id=2421, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='Show total node power above desired channel power at individual frequency 1200 MHz?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2421, actual_row_id=2421, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 2421,
       "actual_row_id": 2421,
@@ -276,7 +276,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='Show total node power above channel power at individual frequency 1200 MHz?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2423, actual_row_id=2423, checks=[], failures=[], note='', latency_s=0.01)"
+        "MessageResult(text='Show total node power above channel power at individual frequency 1200 MHz?', expected_status='ANSWERED', actual_status='ANSWERED', expected_row_id=2423, actual_row_id=2423, checks=[], failures=[], note='', latency_s=0.0)"
       ],
       "expected_row_id": 2423,
       "actual_row_id": 2423,
@@ -321,7 +321,7 @@
       "outcome": "PASSED",
       "reason": "",
       "messages": [
-        "MessageResult(text='What is the best mismatch loss in the ADL8124 family?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.02)"
+        "MessageResult(text='What is the best mismatch loss in the ADL8124 family?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.01)"
       ],
       "expected_row_id": null,
       "actual_row_id": null,
@@ -414,7 +414,7 @@
       "reason": "",
       "messages": [
         "MessageResult(text='What is the gain at 2500 MHz?', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.0)",
-        "MessageResult(text='CGAIN', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.03)"
+        "MessageResult(text='CGAIN', expected_status='NEEDS_CLARIFICATION', actual_status='NEEDS_CLARIFICATION', expected_row_id=None, actual_row_id=None, checks=[], failures=[], note='', latency_s=0.01)"
       ],
       "expected_row_id": null,
       "actual_row_id": null,

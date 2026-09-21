@@ -1,13 +1,16 @@
 """Lightweight conversation context.
 
-Design-only at this milestone: carries the last resolved intent's dimensions
-so a follow-up like "What about the best?" can inherit the stable dimensions
-(metric, scope, unit, frequency_selection) while the changed dimension
-(request, params) comes from the new message.
+Carries the last resolved intent's dimensions so an explicit elliptical
+follow-up ("What about the best?", "And at 2600?", "Show the same for
+node 45.") can inherit the stable dimensions while the changed dimensions
+come from the new message.
 
 Conservative rules:
 - Only dimensions the NEW draft left null may be inherited.
-- request and params are NEVER inherited (a follow-up normally changes them).
+- Inheritance happens ONLY for explicit elliptical follow-ups (gated by
+  the parser); a grammatically complete question is always a NEW intent.
+- params are NEVER inherited (a changed request needs fresh parameters;
+  if the inherited request requires params, the parser asks for them).
 - If inheritance still leaves required dimensions null, the parser must
   ask for clarification — never guess.
 """
@@ -19,8 +22,14 @@ from datetime import datetime, timezone
 
 from rf_catalogue.query_intent import QueryIntent
 
-#: dimensions eligible for inheritance from prior turns
-INHERITABLE_DIMENSIONS = ("metric", "scope", "unit", "frequency_selection")
+#: dimensions eligible for inheritance from prior turns. `request` is
+#: included because elliptical follow-ups ("And at 2600?") change only a
+#: dimension the user names while the operation stays the same; the
+#: parser gates inheritance to explicit elliptical follow-ups, so a new
+#: complete question never inherits it.
+INHERITABLE_DIMENSIONS = (
+    "metric", "request", "scope", "unit", "frequency_selection",
+)
 
 
 @dataclass

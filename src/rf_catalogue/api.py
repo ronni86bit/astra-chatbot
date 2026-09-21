@@ -42,7 +42,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from rf_catalogue.nlp.context import ConversationContext
 from rf_catalogue.service import AnswerResult, AnswerStatus, RfCatalogueService
@@ -77,10 +77,30 @@ _NO_SERVICE_MESSAGE = (
 
 
 class ChatRequest(BaseModel):
-    """One chat turn. ``session_id`` omitted/unknown -> new session."""
+    """One chat turn.
 
-    message: str = Field(min_length=1, max_length=MAX_MESSAGE_CHARS)
+    Canonical fields are ``message`` + ``session_id``; the task-style
+    aliases ``question`` + ``conversation_id`` are accepted for contract
+    compliance (POST /api/query). At least one message field is required.
+    """
+
+    message: str | None = Field(default=None, min_length=1,
+                                max_length=MAX_MESSAGE_CHARS)
     session_id: str | None = Field(default=None, min_length=8, max_length=64)
+    question: str | None = Field(default=None, min_length=1,
+                                 max_length=MAX_MESSAGE_CHARS)
+    conversation_id: str | None = Field(default=None, min_length=8,
+                                        max_length=64)
+
+    @model_validator(mode="after")
+    def _resolve_aliases(self) -> "ChatRequest":
+        if self.message is None and self.question is not None:
+            self.message = self.question
+        if self.message is None:
+            raise ValueError("Provide a non-empty 'message' (or 'question').")
+        if self.session_id is None and self.conversation_id is not None:
+            self.session_id = self.conversation_id
+        return self
 
 
 class ResetRequest(BaseModel):
@@ -295,6 +315,7 @@ def create_app(
     app.state.store = SessionStore(ttl_seconds=ttl)
 
     @app.get("/api/health")
+    @app.get("/health")
     def health() -> dict:
         return {"status": "ok"}
 
@@ -329,6 +350,7 @@ def create_app(
         return {"examples": questions}
 
     @app.post("/api/chat")
+    @app.post("/api/query")
     def chat(request: ChatRequest) -> dict:
         session_id, session = app.state.store.get_or_create(
             request.session_id)

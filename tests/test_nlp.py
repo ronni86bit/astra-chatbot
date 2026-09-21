@@ -412,8 +412,13 @@ class TestConversationContext:
                    answered=True)
         inherited = ctx.inherit({"scope", "unit"})
         assert inherited == {"scope": "Final node", "unit": "dB"}
-        # request/params are never inherited
-        assert "request" not in ctx.inherit({"metric", "request", "scope", "unit"})
+        # Elliptical follow-ups inherit the previous request too (policy:
+        # frequency-only follow-ups like "And at 2600?" keep the
+        # operation), but only dimensions the new draft left null are
+        # returned, and params are never part of inheritance.
+        full = ctx.inherit({"metric", "request", "scope", "unit"})
+        assert full["request"] == "Worst"
+        assert set(full) == {"metric", "request", "scope", "unit"}
 
     def test_unanswered_turns_do_not_seed_context(self, engine):
         ctx = ConversationContext()

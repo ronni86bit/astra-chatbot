@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { api, STATUS_LABELS } from './api.js'
 
 const SESSION_KEY = 'rf-assistant-session'
+const THEME_KEY = 'rf-assistant-theme'
 
 let nextId = 1
 
@@ -15,6 +16,38 @@ function statusBadge(status) {
     ERROR: 'badge error',
   }[status] || 'badge'
   return <span className={cls}>{STATUS_LABELS[status] || status}</span>
+}
+
+function CopyButton({ getText }) {
+  const [copied, setCopied] = useState(false)
+  const timer = useRef(null)
+
+  useEffect(() => () => clearTimeout(timer.current), [])
+
+  async function copy() {
+    const text = getText()
+    try {
+      await navigator.clipboard.writeText(text)
+    } catch {
+      // Clipboard API unavailable (permissions / non-secure context).
+      const ta = document.createElement('textarea')
+      ta.value = text
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      try { document.execCommand('copy') } finally { ta.remove() }
+    }
+    setCopied(true)
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => setCopied(false), 1600)
+  }
+
+  return (
+    <button className="copy-btn" onClick={copy} title="Copy to clipboard">
+      {copied ? 'Copied' : 'Copy'}
+    </button>
+  )
 }
 
 function IntentCard({ intent }) {
@@ -43,6 +76,10 @@ function IntentCard({ intent }) {
 function AssistantMessage({ msg, onCandidate }) {
   const r = msg.result || {}
   const answered = r.status === 'ANSWERED'
+  // Copy the user-visible output only — never intent/debug metadata.
+  const copyText = answered
+    ? r.answer_text || ''
+    : [r.message, ...(r.candidate_hints || [])].filter(Boolean).join('\n')
   return (
     <div className="msg assistant">
       <div className="msg-head">
@@ -50,6 +87,8 @@ function AssistantMessage({ msg, onCandidate }) {
         {r.row_id != null && (
           <span className="source">Source: catalogue row {r.row_id}</span>
         )}
+        <span className="spacer" />
+        <CopyButton getText={() => copyText} />
       </div>
 
       {answered && r.answer_text && (
@@ -91,6 +130,8 @@ export default function App() {
   const [error, setError] = useState(null)
   const [examples, setExamples] = useState([])
   const [status, setStatus] = useState(null)
+  const [theme, setTheme] = useState(() =>
+    document.documentElement.dataset.theme || 'dark')
   const sessionRef = useRef(null)
   const listRef = useRef(null)
 
@@ -103,6 +144,13 @@ export default function App() {
   useEffect(() => {
     listRef.current?.scrollTo(0, listRef.current.scrollHeight)
   }, [messages, busy])
+
+  function toggleTheme() {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+    document.documentElement.dataset.theme = next
+    localStorage.setItem(THEME_KEY, next)
+  }
 
   async function send(text) {
     const message = text.trim()
@@ -147,8 +195,20 @@ export default function App() {
   // documented clarification-reply flow ("CGAIN" resumes the pending draft).
   const onCandidate = (label) => send(label)
 
+  const themeBtn = (
+    <button className="ghost-btn" onClick={toggleTheme}>
+      {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+    </button>
+  )
+
   return (
     <div className="layout">
+      <header className="mobilebar">
+        <span className="mobile-title">RF/SystemVue Assistant</span>
+        {themeBtn}
+        <button className="ghost-btn" onClick={reset}>New chat</button>
+      </header>
+
       <aside className="sidebar">
         <h1 className="brand">RF/SystemVue<br />Question Assistant</h1>
         <p className="tagline">
@@ -179,7 +239,10 @@ export default function App() {
           )}
         </div>
 
-        <button className="reset" onClick={reset}>Reset conversation</button>
+        <div className="sidebar-actions">
+          {themeBtn}
+          <button className="reset" onClick={reset}>New chat / reset</button>
+        </div>
       </aside>
 
       <main className="chat">
@@ -205,12 +268,13 @@ export default function App() {
           className="composer"
           onSubmit={(e) => { e.preventDefault(); send(input) }}
         >
-          <input
+          <textarea
             value={input}
+            rows={1}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
-              // Explicit Enter-to-send: do not rely on implicit form
-              // submission, which some embedded browsers suppress.
+              // Enter sends; Shift+Enter inserts a newline (composed
+              // input, e.g. IME, is never hijacked).
               if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
                 e.preventDefault()
                 send(input)

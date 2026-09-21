@@ -1,8 +1,8 @@
 # Manual Acceptance Report (latest run)
 
-- Run at : 2026-09-20T19:14:05.709605+00:00
+- Run at : 2026-09-21T02:39:06.411201+00:00
 - Mode   : OFFLINE/MOCKED
-- Duration: 27.5s
+- Duration: 16.0s
 
 | metric | value |
 |---|---|

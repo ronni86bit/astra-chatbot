@@ -219,6 +219,42 @@ class TestConversationFollowUps:
         assert resp.status_code == 404
 
 
+class TestContractAliases:
+    """Task-contract aliases: GET /health and POST /api/query with
+    question/conversation_id field names must behave identically to
+    /api/health and /api/chat with message/session_id."""
+
+    def test_health_alias(self, client):
+        assert client.get("/health").json() == {"status": "ok"}
+
+    def test_query_route_with_contract_field_names(self, client):
+        body = client.post("/api/query", json={
+            "question": "What is the best Mismatch Loss in the final node?",
+        }).json()
+        result = body["result"]
+        assert result["status"] == "ANSWERED"
+        assert isinstance(result["row_id"], int)
+        assert body["session_id"]
+
+        # conversation_id continues the same session.
+        body2 = client.post("/api/query", json={
+            "question": "and a different question",
+            "conversation_id": body["session_id"],
+        }).json()
+        assert body2["session_id"] == body["session_id"]
+
+    def test_message_field_still_works_on_query_route(self, client):
+        body = client.post("/api/query", json={
+            "message": "hello", "session_id": None}).json()
+        assert body["result"]["status"] in ("ANSWERED", "NEEDS_CLARIFICATION",
+                                            "NOT_FOUND", "UNSUPPORTED",
+                                            "PARSE_ERROR")
+
+    def test_missing_message_and_question_rejected(self, client):
+        resp = client.post("/api/query", json={"session_id": None})
+        assert resp.status_code == 422
+
+
 class TestSlashCommands:
     def test_reset_command_via_chat(self, client):
         sid = post_chat(client, "hello there").json()["session_id"]

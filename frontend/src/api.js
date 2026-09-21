@@ -1,3 +1,5 @@
+const BASE = import.meta.env.VITE_API_BASE_URL || ''
+
 const STATUS_LABELS = {
   ANSWERED: 'Answered',
   NEEDS_CLARIFICATION: 'Needs clarification',
@@ -8,7 +10,7 @@ const STATUS_LABELS = {
 }
 
 async function api(path, options = {}) {
-  const resp = await fetch(path, {
+  const resp = await fetch(BASE + path, {
     headers: { 'Content-Type': 'application/json' },
     ...options,
   })

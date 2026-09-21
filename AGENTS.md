@@ -99,3 +99,13 @@ Commands:
 19. **Secrets never reach the browser.** `/api/status` exposes
     provider/model names only. No key material is logged, serialized, or
     embedded in responses.
+20. **Provider errors are not model failures.** Timeouts, rate limits,
+    auth and credit errors surface as friendly `ERROR` results and are
+    excluded from accuracy denominators; they are never retried
+    blindly and never converted into answers.
+21. **No RAG/vector/embedding architecture** unless an explicit future
+    requirement replaces this rule — the deterministic lookup is the
+    trusted execution layer.
+22. **A stored answer of "No valid matching records were found." is a
+    valid ANSWERED payload** (the catalogue row exists); do not convert
+    it to NOT_FOUND.

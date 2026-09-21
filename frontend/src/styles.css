@@ -9,6 +9,23 @@
   --ok: #2e9e6b;
   --warn: #c98a2d;
   --error: #c94f4f;
+  --answer-bg: #1d2740;
+  --user-text: #ffffff;
+}
+
+:root[data-theme="light"] {
+  --bg: #f4f6fb;
+  --panel: #ffffff;
+  --panel-2: #eef2f9;
+  --border: #d4dce8;
+  --text: #1a2233;
+  --muted: #5b6b84;
+  --accent: #2563eb;
+  --ok: #178a56;
+  --warn: #b45309;
+  --error: #b91c1c;
+  --answer-bg: #eef2f9;
+  --user-text: #ffffff;
 }
 
 * { box-sizing: border-box; }
@@ -25,6 +42,32 @@ body {
   grid-template-columns: 300px 1fr;
   height: 100vh;
 }
+
+/* ---------- mobile top bar (hidden on desktop) ---------- */
+
+.mobilebar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-title { font-weight: 600; font-size: 0.9rem; }
+
+.ghost-btn {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ghost-btn:hover { border-color: var(--accent); }
 
 /* ---------- sidebar ---------- */
 
@@ -83,13 +126,19 @@ body {
   gap: 4px;
 }
 
+.sidebar-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .reset {
   /* Sticky footer: stays visible on short viewports instead of being
      clipped below the fold (visual-judge finding). */
   position: sticky;
   bottom: 0;
   z-index: 1;
-  margin-top: 20px;
   width: 100%;
   background: var(--panel);
   color: var(--muted);
@@ -122,7 +171,7 @@ body {
 .msg.user {
   align-self: flex-end;
   background: var(--accent);
-  color: #fff;
+  color: var(--user-text);
   border-radius: 14px 14px 3px 14px;
   padding: 10px 14px;
   max-width: 80%;
@@ -166,11 +215,26 @@ body {
 
 .source { font-size: 0.75rem; color: var(--muted); }
 
+.spacer { flex: 1; }
+
+.copy-btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 9px;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+.copy-btn[title="Copy to clipboard"] { margin-left: auto; }
+
 .answer-text {
   font-size: 0.95rem;
   line-height: 1.55;
   white-space: pre-wrap;
-  background: var(--panel-2);
+  background: var(--answer-bg);
   border-left: 3px solid var(--ok);
   padding: 10px 12px;
   border-radius: 0 8px 8px 0;
@@ -234,7 +298,7 @@ body {
   background: var(--panel);
 }
 
-.composer input {
+.composer textarea {
   flex: 1;
   background: var(--panel-2);
   border: 1px solid var(--border);
@@ -242,14 +306,19 @@ body {
   border-radius: 10px;
   padding: 11px 14px;
   font-size: 0.92rem;
+  font-family: inherit;
+  line-height: 1.45;
   outline: none;
+  resize: none;
+  min-height: 44px;
+  max-height: 140px;
 }
 
-.composer input:focus { border-color: var(--accent); }
+.composer textarea:focus { border-color: var(--accent); }
 
 .composer button {
   background: var(--accent);
-  color: #fff;
+  color: var(--user-text);
   border: none;
   border-radius: 10px;
   padding: 0 22px;
@@ -262,6 +331,11 @@ body {
 /* ---------- narrow screens ---------- */
 
 @media (max-width: 820px) {
-  .layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100dvh;
+  }
+  .mobilebar { display: flex; }
   .sidebar { display: none; }
 }

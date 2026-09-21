@@ -83,7 +83,7 @@ _SCOPE_HEDGES = {"family", "group", "variants", "series"}
 #: context must never turn an exact catalogue question into NOT_FOUND.
 _ELLIPTICAL_RE = re.compile(
     r"^(?:what|how)\s+about\b"
-    r"|^and\s+(?:for|at|in|the|what|show|its|it's|that)\b"
+    r"|^and\s+(?:for|at|in|on|the|what|show|its|it's|that|across)\b"
     r"|^show\s+the\s+same\b"
     r"|^same\s+(?:for|as)\b"
     r"|^for\s+that\b"
@@ -343,10 +343,13 @@ class QueryParser:
 
         # -- Conversation context inheritance (conservative) -----------------
         # ONLY for explicit elliptical follow-ups ("What about the best?",
-        # "Show the same for node 45."). A new, grammatically complete
-        # question is a NEW intent by default: omitted dimensions are left
-        # to the catalogue-inference/clarification policy, never silently
-        # inherited from prior turns.
+        # "And at 2600?", "Show the same for node 45."). A new, grammatically
+        # complete question is a NEW intent by default: omitted dimensions
+        # are left to the catalogue-inference/clarification policy, never
+        # silently inherited from prior turns. For elliptical follow-ups the
+        # stable dimensions — including the previous operation (request) —
+        # are inherited when the new message does not restate them; params
+        # are never inherited.
         if context is not None and self.is_elliptical_followup(normalized):
             inherited = context.inherit(set(draft.missing_dimensions()))
             for dim, value in inherited.items():
@@ -755,10 +758,20 @@ class QueryParser:
 
         # frequency: literal MHz value or explicit all-frequencies wording?
         if draft.frequency_selection is not None:
-            literal = bool(_FREQ_RE.search(normalized)) or \
-                draft.frequency_selection == "All Frequencies" and \
-                bool(re.search(r"\ball frequencies\b|\bacross frequency\b|\bacross all frequencies\b",
-                               text_lower))
+            literal = bool(_FREQ_RE.search(normalized))
+            if not literal and draft.frequency_selection == "All Frequencies":
+                literal = bool(re.search(
+                    r"\ball frequencies\b|\bacross frequency\b"
+                    r"|\bacross all frequencies\b", text_lower))
+            if not literal and \
+                    draft.frequency_selection in self.vocab.frequency_selections:
+                # Bare-number wording ("And at 2600?"): the number alone is
+                # a literal frequency statement when it is itself a
+                # catalogue frequency selection. Threshold/closest values
+                # are decimals routed to params, so they never collide.
+                number = draft.frequency_selection.split()[0]
+                literal = bool(
+                    re.search(rf"\b{re.escape(number)}\b", normalized))
             if not literal:
                 draft.frequency_selection = None
                 vetoed.append("frequency_selection")
